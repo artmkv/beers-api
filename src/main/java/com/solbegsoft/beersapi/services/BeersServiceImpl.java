@@ -2,7 +2,7 @@ package com.solbegsoft.beersapi.services;
 
 import com.solbegsoft.beersapi.models.RootBeer;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
-import com.solbegsoft.beersapi.models.response.PunkApiResponse;
+import com.solbegsoft.beersapi.repositories.PunkApiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,12 @@ public class BeersServiceImpl implements BeersService {
     /**
      * Punk Api Repository
      */
-    private final PunkApiResponse repository;
+    private final PunkApiRepository punkApiRepository;
 
     @Override
-    public List<RootBeer> getBeers(RequestRootBeerDto requestRootBeerDto){
-        return repository.getRootBeers(requestRootBeerDto);
+    public List<RootBeer> getBeers(RequestRootBeerDto requestRootBeerDto) {
+        return punkApiRepository.getRootBeers(requestRootBeerDto);
     }
+
+
 }

@@ -1,17 +1,19 @@
 package com.solbegsoft.beersapi.controllers;
 
 
+import com.solbegsoft.beersapi.annotations.CustomRequestParamValidation;
+import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.RootBeer;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
 import com.solbegsoft.beersapi.models.response.ResponseApi;
 import com.solbegsoft.beersapi.services.BeersService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 /**
  * Beers Controller
  */
+@Validated
 @RestController
 @RequestMapping("beers-api/v1/beers")
 @RequiredArgsConstructor
@@ -46,13 +49,13 @@ public class BeersController {
     public ResponseApi<List<RootBeer>> findBeers(
             @RequestParam(value = "beerName", required = false) String beerName,
             @RequestParam(value = "foodName", required = false) String foodName,
-            @RequestParam(value = "abv_gt", required = false) Double abvGt,
-            @RequestParam(value = "ibu_gt", required = false) Double ibuGt,
-            @RequestParam(value = "ebc_gt", required = false) Double ebcGt,
-            @RequestParam(value = "abv_lt", required = false) Double abvLt,
-            @RequestParam(value = "ibu_lt", required = false) Double ibuLt,
-            @RequestParam(value = "ebc_lt", required = false) Double ebcLt
-    ) {
+            @RequestParam(value = "abv_gt", required = false) @CustomRequestParamValidation Double abvGt,
+            @RequestParam(value = "ibu_gt", required = false) @CustomRequestParamValidation Double ibuGt,
+            @RequestParam(value = "ebc_gt", required = false) @CustomRequestParamValidation Double ebcGt,
+            @RequestParam(value = "abv_lt", required = false) @CustomRequestParamValidation Double abvLt,
+            @RequestParam(value = "ibu_lt", required = false) @CustomRequestParamValidation Double ibuLt,
+            @RequestParam(value = "ebc_lt", required = false) @CustomRequestParamValidation Double ebcLt
+    ) throws ResponseBeersException {
         RequestRootBeerDto requestDto = RequestRootBeerDto.builder()
                 .beerName(beerName)
                 .foodName(foodName)

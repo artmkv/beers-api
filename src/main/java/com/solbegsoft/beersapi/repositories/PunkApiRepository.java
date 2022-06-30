@@ -1,29 +1,17 @@
 package com.solbegsoft.beersapi.repositories;
 
+
 import com.solbegsoft.beersapi.models.RootBeer;
-import com.solbegsoft.beersapi.models.dtos.BeerDto;
+import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
+import java.util.List;
 
-
-import org.springframework.stereotype.Repository;
-
-
-@Repository
 public interface PunkApiRepository {
 
     /**
-     * Find by name
+     * Find all beers
      *
-     * @param name Beer name
-     * @return {@link RootBeer}
+     * @param requestParams object with all parameters
+     * @return {@link RequestRootBeerDto}
      */
-    BeerDto findByName(String name);
-
-    /**
-     * Exists by name
-     *
-     * @param name beer name
-     * @return true/false
-     */
-    boolean existsByName(String name);
-
+    List<RootBeer> getRootBeers(RequestRootBeerDto requestParams);
 }
