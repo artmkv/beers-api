@@ -1,12 +1,15 @@
 package com.solbegsoft.beersapi.annotations;
 
+
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
-
+/**
+ * Validator of Double type parameters in request parameters
+ */
 @Component
 public class RequestBeersConstraintValidator implements ConstraintValidator<CustomRequestParamValidation, Double> {
 
@@ -17,12 +20,6 @@ public class RequestBeersConstraintValidator implements ConstraintValidator<Cust
 
     @Override
     public boolean isValid(Double value, ConstraintValidatorContext context) {
-        if (Objects.isNull(value)) {
-            return true;
-        }
-        if (value < 0) {
-            return false;
-        }
-        return value < 100;
+        return Objects.isNull(value) || (value >= 0 && value < 100);
     }
 }

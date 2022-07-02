@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Validation of values of type Double request parameters
+ * Annotation to Validate of values of type Double request parameters
  */
 @Documented
 @Constraint(validatedBy = RequestBeersConstraintValidator.class)

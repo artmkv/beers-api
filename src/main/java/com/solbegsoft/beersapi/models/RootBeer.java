@@ -1,14 +1,16 @@
 package com.solbegsoft.beersapi.models;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.aspectj.lang.annotation.Aspect;
 
 import java.util.ArrayList;
 
-
+/**
+ * RootBeer is POJO that we get from PunkApi
+ */
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)

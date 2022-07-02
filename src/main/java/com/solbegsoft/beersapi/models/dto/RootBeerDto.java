@@ -1,25 +1,27 @@
-package com.solbegsoft.beersapi.models.dtos;
+package com.solbegsoft.beersapi.models.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
- * Beer dto
+ * RootBeerDto
  */
-//@Data
-////@Builder
-//@NoArgsConstructor
-public class BeerDto {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RootBeerDto {
 
     /**
      * id
      */
-    private UUID id;
+    private long id;
     /**
      * name
      */
@@ -29,9 +31,9 @@ public class BeerDto {
      */
     private String tagline;
     /**
-     * First brewed
+     * Date of First brewed
      */
-    private String first_brewed;
+    private LocalDate firstBrewed;
     /**
      * Description
      */
@@ -39,7 +41,7 @@ public class BeerDto {
     /**
      * Image URL
      */
-    private String image_url;
+    private String imageUrl;
     /**
      * ABV
      */
@@ -51,11 +53,11 @@ public class BeerDto {
     /**
      * Target_fg
      */
-    private double target_fg;
+    private double targetFg;
     /**
      * Target_fg
      */
-    private double target_og;
+    private double targetOg;
     /**
      * EBC
      */
@@ -71,18 +73,17 @@ public class BeerDto {
     /**
      * Attenuation level
      */
-    private double attenuation_level;
+    private double attenuationLevel;
     /**
-     * @see FoodDto array
+     * food array
      */
-    private ArrayList<FoodDto> food_pairing;
+    private ArrayList<String> foodPairing;
     /**
      * Brewers tips
      */
-    private String brewers_tips;
+    private String brewersTips;
     /**
      * Contributed by
      */
-    private String contributed_by;
+    private String contributedBy;
 }
-
