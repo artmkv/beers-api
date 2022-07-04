@@ -1,11 +1,8 @@
 api:
-    punkapi:
-         url: https://api.punkapi.com/v2/beers
+  punkapi:
+    url: https://api.punkapi.com/v2/beers
 
 spring:
-  profiles:
-    active: dev
-
   datasource:
     url: jdbc:postgresql://localhost:5432/demobase
     driver-class-name: org.postgresql.Driver

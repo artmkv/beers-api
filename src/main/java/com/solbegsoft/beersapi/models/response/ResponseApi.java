@@ -1,5 +1,6 @@
 package com.solbegsoft.beersapi.models.response;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

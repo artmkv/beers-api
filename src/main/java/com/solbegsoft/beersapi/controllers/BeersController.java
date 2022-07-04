@@ -1,14 +1,16 @@
 package com.solbegsoft.beersapi.controllers;
 
 
+import com.solbegsoft.beersapi.annotations.CustomLogger;
 import com.solbegsoft.beersapi.annotations.CustomRequestParamValidation;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
-import com.solbegsoft.beersapi.models.RootBeer;
+import com.solbegsoft.beersapi.models.dto.RootBeerDto;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
 import com.solbegsoft.beersapi.models.response.ResponseApi;
 import com.solbegsoft.beersapi.services.BeersService;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
  * Beers Controller
  */
+@Slf4j
 @Validated
 @RestController
 @RequestMapping("beers-api/v1/beers")
@@ -33,7 +35,7 @@ public class BeersController {
     private final BeersService beersService;
 
     /**
-     * Find beers
+     * Find Beers
      *
      * @param beerName returns all beers with name of beer
      * @param foodName returns all beers with name of food
@@ -45,8 +47,9 @@ public class BeersController {
      * @param ibuGt    returns all beers with IBU greater than the supplied number
      * @return ResponseApi
      */
+    @CustomLogger
     @GetMapping
-    public ResponseApi<List<RootBeer>> findBeers(
+    public ResponseApi<List<RootBeerDto>> findBeers(
             @RequestParam(value = "beerName", required = false) String beerName,
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "abv_gt", required = false) @CustomRequestParamValidation Double abvGt,

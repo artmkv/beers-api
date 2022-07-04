@@ -1,7 +1,8 @@
-package com.solbegsoft.beersapi.annotations.apects;
+package com.solbegsoft.beersapi.annotations.aspects;
 
 
 import com.solbegsoft.beersapi.annotations.CustomLogger;
+import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -28,7 +29,6 @@ public class LoggerAspect {
      */
     @Pointcut("@annotation(com.solbegsoft.beersapi.annotations.CustomLogger)")
     public void logMethod() {
-
     }
 
     /**
@@ -50,7 +50,7 @@ public class LoggerAspect {
             log.info("#GET: method: \"{}\" with result {}", method, proceed);
             return proceed;
         } catch (Throwable e) {
-            throw new ResponseBeersException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResponseBeersException(ErrorMessageConstant.ERROR_BEERS_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
 }

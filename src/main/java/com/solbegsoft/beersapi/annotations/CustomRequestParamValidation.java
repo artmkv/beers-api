@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomRequestParamValidation {
 
-    String message() default "The parameter value is out of range. Valid value  0 =< (number) < 100";
+    String message() default "";
 
     Class<?>[] groups() default {};
 

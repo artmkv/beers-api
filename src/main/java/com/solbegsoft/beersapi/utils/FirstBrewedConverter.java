@@ -1,6 +1,7 @@
 package com.solbegsoft.beersapi.utils;
 
 
+import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class FirstBrewedConverter {
                 }
                 return LocalDate.of(year, mounth, day);
             } catch (RuntimeException e) {
-                throw new ResponseBeersException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+                throw new ResponseBeersException(ErrorMessageConstant.ERROR_CONVERTER, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         return null;

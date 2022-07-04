@@ -51,7 +51,7 @@ public class PunkApiRepositoryImpl implements PunkApiRepository {
         URI uri = getUriFromRootBeerDto(requestParams);
         ResponseEntity<RootBeer[]> entity = restTemplate.getForEntity(uri, RootBeer[].class);
         if (!entity.getStatusCode().is2xxSuccessful()) {
-            throw new ResponseBeersException(ErrorMessageConstant.ERROR_IN_PUNKAPI_REPOSITORY, entity.getStatusCode());
+            throw new ResponseBeersException(ErrorMessageConstant.ERROR_IN_PUNKAPI_REPOSITORY, entity.getStatusCode(), entity.toString());
         }
         return new ArrayList<>(Arrays.asList(Objects.requireNonNull(entity.getBody())));
     }
