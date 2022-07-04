@@ -19,6 +19,11 @@ import java.util.Objects;
 public class FirstBrewedConverter {
 
     /**
+     * @see MessageUtils
+     */
+    private final MessageUtils messageUtils;
+
+    /**
      * Converter String type format date to LocalDate type
      *
      * @param date in String type format
@@ -38,7 +43,7 @@ public class FirstBrewedConverter {
                     mounth = Integer.parseInt(date.substring(0, 2));
                 }
                 return LocalDate.of(year, mounth, day);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 throw new ResponseBeersException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }

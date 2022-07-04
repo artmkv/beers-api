@@ -1,5 +1,6 @@
 package com.solbegsoft.beersapi.repositories;
 
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,10 +11,10 @@ import java.util.Optional;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.RootBeer;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
-
-import com.solbegsoft.beersapi.utils.ErrorMessageUtils;
+import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -21,15 +22,22 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * Response model
+ * PunApi repository implemented
  */
+@Slf4j
 @Data
 @Component
 @RequiredArgsConstructor
 public class PunkApiRepositoryImpl implements PunkApiRepository {
 
+    /**
+     * @see RestTemplate
+     */
     private final RestTemplate restTemplate;
 
+    /**
+     * URL of PunkApi
+     */
     @Value("${api.punkapi.url}")
     private String urlPunkApi;
 
@@ -39,13 +47,13 @@ public class PunkApiRepositoryImpl implements PunkApiRepository {
      * @param requestParams object with all parameters
      * @return {@link RequestRootBeerDto}
      */
-    public List<RootBeer> getRootBeers(RequestRootBeerDto requestParams) {
+    public List<RootBeer> getRootBeers(RequestRootBeerDto requestParams) throws ResponseBeersException {
         URI uri = getUriFromRootBeerDto(requestParams);
-        ResponseEntity<RootBeer[]> forEnt = restTemplate.getForEntity(uri, RootBeer[].class);
-        if (!forEnt.getStatusCode().is2xxSuccessful()) {
-            throw new ResponseBeersException(ErrorMessageUtils.ERROR_IN_PUNKAPI_REPOSITORY, forEnt.getStatusCode());
+        ResponseEntity<RootBeer[]> entity = restTemplate.getForEntity(uri, RootBeer[].class);
+        if (!entity.getStatusCode().is2xxSuccessful()) {
+            throw new ResponseBeersException(ErrorMessageConstant.ERROR_IN_PUNKAPI_REPOSITORY, entity.getStatusCode());
         }
-        return new ArrayList<>(Arrays.asList(Objects.requireNonNull(forEnt.getBody())));
+        return new ArrayList<>(Arrays.asList(Objects.requireNonNull(entity.getBody())));
     }
 
     /**
@@ -55,8 +63,7 @@ public class PunkApiRepositoryImpl implements PunkApiRepository {
      * @return URI
      */
     private URI getUriFromRootBeerDto(RequestRootBeerDto requestParams) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlPunkApi);
-        return builder
+        return UriComponentsBuilder.fromHttpUrl(urlPunkApi)
                 .queryParamIfPresent("beer_name", Optional.ofNullable(requestParams.getBeerName()))
                 .queryParamIfPresent("food", Optional.ofNullable(requestParams.getFoodName()))
                 .queryParamIfPresent("abv_gt", Optional.ofNullable(requestParams.getAbvGt()))
