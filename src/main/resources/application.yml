@@ -3,6 +3,10 @@ api:
     url: https://api.punkapi.com/v2/beers
 
 spring:
+  web:
+    locale-resolver: accept_header
+    locale: en
+
   datasource:
     url: jdbc:postgresql://localhost:5432/demobase
     driver-class-name: org.postgresql.Driver

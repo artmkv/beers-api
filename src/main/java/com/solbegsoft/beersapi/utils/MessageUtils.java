@@ -23,7 +23,7 @@ public class MessageUtils {
      * @param objects parameters for messages
      * @return String
      */
-    public String getMessage(String code, Object[] objects) {
+    public String getMessage(String code, Object... objects) {
 
         return messageSource.getMessage(code, objects, LocaleContextHolder.getLocale());
     }

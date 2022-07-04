@@ -33,6 +33,7 @@ public class LoggerAspect {
      */
     @Around("logMethod()")
     public Object logApplication(ProceedingJoinPoint joinPoint) throws Throwable {
+
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         String method = methodSignature.getMethod().getName();
         Object[] args = joinPoint.getArgs();

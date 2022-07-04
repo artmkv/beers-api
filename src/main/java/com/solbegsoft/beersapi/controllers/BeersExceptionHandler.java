@@ -45,7 +45,7 @@ public class BeersExceptionHandler {
                 .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message(messageUtils.getMessage(e.getMessageKey()))
-                .data(e.getHttpStatus() +" : "+ e.getMessage())
+                .data(e.getHttpStatus() + " : " + e.getMessage())
                 .build();
     }
 
@@ -57,13 +57,12 @@ public class BeersExceptionHandler {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ErrorResponseApi<Object> handlerPunkApiException(MethodArgumentTypeMismatchException e) {
+    public ErrorResponseApi<Object> handlerMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
 
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .message(String.format(messageUtils.getMessage(
-                        ErrorMessageConstant.INVALID_TYPE_PARAMETER), e.getName()))
+                .message(messageUtils.getMessage(ErrorMessageConstant.INVALID_TYPE_PARAMETER, e.getName()))
                 .data(e.getMessage())
                 .build();
     }
@@ -78,7 +77,7 @@ public class BeersExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorResponseApi<Object> handleConstraintViolationException(ConstraintViolationException e) {
 
-        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER);
+        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER, "00", "01");
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
