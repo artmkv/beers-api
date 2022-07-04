@@ -2,15 +2,12 @@ package com.solbegsoft.beersapi.annotations.aspects;
 
 
 import com.solbegsoft.beersapi.annotations.CustomLogger;
-import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
-import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -35,7 +32,7 @@ public class LoggerAspect {
      * @see Around
      */
     @Around("logMethod()")
-    public Object logApplication(ProceedingJoinPoint joinPoint) throws ResponseBeersException {
+    public Object logApplication(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         String method = methodSignature.getMethod().getName();
         Object[] args = joinPoint.getArgs();
@@ -50,7 +47,7 @@ public class LoggerAspect {
             log.info("#GET: method: \"{}\" with result {}", method, proceed);
             return proceed;
         } catch (Throwable e) {
-            throw new ResponseBeersException(ErrorMessageConstant.ERROR_BEERS_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+            throw  e;
         }
     }
 }

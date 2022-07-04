@@ -21,11 +21,13 @@ public class BeersApiConfig {
 
     @Bean
     public RestTemplate restTemplate() {
+
         return new RestTemplate();
     }
 
     @Bean
     public MessageSource messageSource() {
+
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("UTF-8");
@@ -34,8 +36,9 @@ public class BeersApiConfig {
 
     @Bean
     public LocaleResolver localeResolver() {
+
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(Locale.forLanguageTag("ru"));
+        localeResolver.setDefaultLocale(Locale.US);
         return localeResolver;
     }
 }

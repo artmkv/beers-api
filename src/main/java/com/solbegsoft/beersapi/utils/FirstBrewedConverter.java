@@ -1,7 +1,7 @@
 package com.solbegsoft.beersapi.utils;
 
 
-import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
+import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

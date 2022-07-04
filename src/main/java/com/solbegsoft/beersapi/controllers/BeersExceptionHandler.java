@@ -2,10 +2,10 @@ package com.solbegsoft.beersapi.controllers;
 
 
 import com.solbegsoft.beersapi.annotations.CustomLogger;
-import com.solbegsoft.beersapi.exceptions.ErrorResponseApi;
+import com.solbegsoft.beersapi.models.response.ErrorResponseApi;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.response.ResponseApi;
-import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
+import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Locale;
 
 /**
  * Exception handler
@@ -41,10 +40,11 @@ public class BeersExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(ResponseBeersException.class)
     public ErrorResponseApi<Object> handlerResponseBeersException(ResponseBeersException e) {
+
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message(messageUtils.getMessage(e.getMessageKey(),  Locale.getDefault()))
+                .message(messageUtils.getMessage(e.getMessageKey()))
                 .data(e.getHttpStatus() +" : "+ e.getMessage())
                 .build();
     }
@@ -58,11 +58,12 @@ public class BeersExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ErrorResponseApi<Object> handlerPunkApiException(MethodArgumentTypeMismatchException e) {
+
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(String.format(messageUtils.getMessage(
-                        ErrorMessageConstant.INVALID_TYPE_PARAMETER, Locale.getDefault()), e.getName()))
+                        ErrorMessageConstant.INVALID_TYPE_PARAMETER), e.getName()))
                 .data(e.getMessage())
                 .build();
     }
@@ -76,10 +77,12 @@ public class BeersExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorResponseApi<Object> handleConstraintViolationException(ConstraintViolationException e) {
+
+        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER);
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .message(messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER,  Locale.getDefault()))
+                .message(message)
                 .data(e.getMessage())
                 .build();
     }

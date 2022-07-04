@@ -1,19 +1,14 @@
-package com.solbegsoft.beersapi.exceptions;
+package com.solbegsoft.beersapi.configurations;
 
 
-import org.springframework.stereotype.Component;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Class with constants to find error message in resource bundle
  */
-@Component
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ErrorMessageConstant {
-
-    /**
-     * Private constructor
-     */
-    private ErrorMessageConstant(){
-    }
 
     /**
      * Error constants in PunkApi

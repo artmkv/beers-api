@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 /**
  * General Exception in beer-api service
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Data
 @AllArgsConstructor
 public class ResponseBeersException extends RuntimeException {

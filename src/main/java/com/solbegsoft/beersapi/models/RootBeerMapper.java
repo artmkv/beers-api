@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Mapper RootBeer to RootBeerDto
@@ -61,8 +61,10 @@ public class RootBeerMapper {
      * @return {@link List} RootBeerDto
      */
     public List<RootBeerDto> mapListToDto(List<RootBeer> list) {
-        List<RootBeerDto> result = new ArrayList<>();
-        list.forEach( b -> result.add(mapToDto(b)));
-        return result;
+
+        return list.stream()
+                .map(this::mapToDto)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 }

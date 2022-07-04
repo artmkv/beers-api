@@ -1,4 +1,4 @@
-package com.solbegsoft.beersapi.exceptions;
+package com.solbegsoft.beersapi.models.response;
 
 
 import lombok.AllArgsConstructor;

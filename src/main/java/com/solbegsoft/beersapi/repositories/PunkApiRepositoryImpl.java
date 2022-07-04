@@ -11,7 +11,7 @@ import java.util.Optional;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.RootBeer;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
-import com.solbegsoft.beersapi.exceptions.ErrorMessageConstant;
+import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

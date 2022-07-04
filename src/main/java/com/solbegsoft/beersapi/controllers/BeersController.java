@@ -11,6 +11,7 @@ import com.solbegsoft.beersapi.services.BeersService;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Beers Controller
@@ -50,6 +52,7 @@ public class BeersController {
     @CustomLogger
     @GetMapping
     public ResponseApi<List<RootBeerDto>> findBeers(
+            @RequestParam(value = "lang", required = false) String locale,
             @RequestParam(value = "beerName", required = false) String beerName,
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "abv_gt", required = false) @CustomRequestParamValidation Double abvGt,
@@ -59,6 +62,8 @@ public class BeersController {
             @RequestParam(value = "ibu_lt", required = false) @CustomRequestParamValidation Double ibuLt,
             @RequestParam(value = "ebc_lt", required = false) @CustomRequestParamValidation Double ebcLt
     ) throws ResponseBeersException {
+
+        LocaleContextHolder.setLocale(new Locale(locale));
         RequestRootBeerDto requestDto = RequestRootBeerDto.builder()
                 .beerName(beerName)
                 .foodName(foodName)
