@@ -2,9 +2,9 @@ package com.solbegsoft.beersapi.services;
 
 
 import com.solbegsoft.beersapi.models.dto.RootBeerDto;
-import com.solbegsoft.beersapi.models.RootBeerMapper;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
 import com.solbegsoft.beersapi.repositories.PunkApiRepository;
+import com.solbegsoft.beersapi.utils.RootBeerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

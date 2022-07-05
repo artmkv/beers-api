@@ -32,6 +32,7 @@ public class FirstBrewedConverter {
      * @throws ResponseBeersException
      */
     public LocalDate convertStringToLocalDate(String date) throws ResponseBeersException {
+
         if (Objects.nonNull(date)) {
             try {
                 int year = 1;

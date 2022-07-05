@@ -18,6 +18,7 @@ public class ResponseBeersException extends RuntimeException {
      * @see HttpStatus
      */
     private final HttpStatus httpStatus;
+
     /**
      * message key from localized message resource
      */
@@ -39,7 +40,7 @@ public class ResponseBeersException extends RuntimeException {
      *
      * @param messageKey message key
      * @param httpStatus {@link HttpStatus}
-     * @param message
+     * @param message message from exception
      */
     public ResponseBeersException(String messageKey, HttpStatus httpStatus, String message) {
         super(message);
@@ -52,8 +53,8 @@ public class ResponseBeersException extends RuntimeException {
      *
      * @param messageKey message key
      * @param httpStatus {@link HttpStatus}
-     * @param message
-     * @param cause
+     * @param message message from exception
+     * @param cause exception
      */
     public ResponseBeersException(String messageKey, HttpStatus httpStatus, String message, Throwable cause) {
         super(message, cause);

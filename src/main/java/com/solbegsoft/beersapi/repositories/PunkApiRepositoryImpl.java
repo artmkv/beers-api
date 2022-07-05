@@ -1,17 +1,10 @@
 package com.solbegsoft.beersapi.repositories;
 
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
+import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.RootBeer;
 import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
-import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * PunApi repository implemented
@@ -48,6 +48,7 @@ public class PunkApiRepositoryImpl implements PunkApiRepository {
      * @return {@link RequestRootBeerDto}
      */
     public List<RootBeer> getRootBeers(RequestRootBeerDto requestParams) throws ResponseBeersException {
+
         URI uri = getUriFromRootBeerDto(requestParams);
         ResponseEntity<RootBeer[]> entity = restTemplate.getForEntity(uri, RootBeer[].class);
         if (!entity.getStatusCode().is2xxSuccessful()) {
@@ -63,6 +64,7 @@ public class PunkApiRepositoryImpl implements PunkApiRepository {
      * @return URI
      */
     private URI getUriFromRootBeerDto(RequestRootBeerDto requestParams) {
+
         return UriComponentsBuilder.fromHttpUrl(urlPunkApi)
                 .queryParamIfPresent("beer_name", Optional.ofNullable(requestParams.getBeerName()))
                 .queryParamIfPresent("food", Optional.ofNullable(requestParams.getFoodName()))

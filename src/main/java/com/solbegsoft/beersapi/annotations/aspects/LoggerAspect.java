@@ -30,6 +30,8 @@ public class LoggerAspect {
 
     /**
      * @see Around
+     *
+     * @param joinPoint proceed joint point
      */
     @Around("logMethod()")
     public Object logApplication(ProceedingJoinPoint joinPoint) throws Throwable {

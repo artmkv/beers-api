@@ -1,10 +1,9 @@
-package com.solbegsoft.beersapi.models;
+package com.solbegsoft.beersapi.utils;
 
 
+import com.solbegsoft.beersapi.models.RootBeer;
 import com.solbegsoft.beersapi.models.dto.RootBeerDto;
-import com.solbegsoft.beersapi.utils.FirstBrewedConverter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
  * Mapper RootBeer to RootBeerDto
  */
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class RootBeerMapper {
 
     /**
@@ -30,6 +29,7 @@ public class RootBeerMapper {
      * @return {@link RootBeerDto}
      */
     public RootBeerDto mapToDto(RootBeer rootBeer) {
+
         if (Objects.nonNull(rootBeer)) {
             return RootBeerDto.builder()
                     .id(rootBeer.getId())
