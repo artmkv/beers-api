@@ -1,0 +1,8 @@
+api:
+  punkapi:
+    url: https://api.punkapi.com/v2/beers
+
+spring:
+  web:
+    locale-resolver: accept_header
+    locale: en
