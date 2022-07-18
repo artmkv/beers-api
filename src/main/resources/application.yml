@@ -6,3 +6,17 @@ spring:
   web:
     locale-resolver: accept_header
     locale: en
+  application:
+    name: beers-api
+
+server:
+  port: 8091
+
+eureka:
+  instance:
+    appname: beers-api
+  client:
+    fetchRegistry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
