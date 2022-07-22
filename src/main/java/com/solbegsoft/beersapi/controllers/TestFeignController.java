@@ -19,13 +19,13 @@ public class TestFeignController {
     /**
      * @see BeersFeignClient
      */
-    private final BeersFeignClient beersFeignClients;
+    private final BeersFeignClient beersFeignClient;
 
     @GetMapping
     public ResponseApi<String> getTestAuthApi() {
 
         String one = "Message from Beers API";
-        String result = beersFeignClients.getAll();
+        String result = beersFeignClient.getAll();
         return new ResponseApi<>(one + "Response from FeignController:  " + result);
     }
 }
