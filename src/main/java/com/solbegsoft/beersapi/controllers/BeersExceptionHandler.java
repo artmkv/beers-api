@@ -76,7 +76,8 @@ public class BeersExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorResponseApi<Object> handleConstraintViolationException(ConstraintViolationException e) {
-        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER, "00", "01");
+
+        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER, "00", "01"); // TODO: 30.07.2022 а что за 00 и 01, зачем они тут? 0_о 
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())

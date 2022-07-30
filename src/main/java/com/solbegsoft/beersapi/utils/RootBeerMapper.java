@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @RequiredArgsConstructor
-public class RootBeerMapper {
+public class RootBeerMapper { // TODO: 30.07.2022 а давай перейдем на MapStruct!
 
     /**
      * @see FirstBrewedConverter

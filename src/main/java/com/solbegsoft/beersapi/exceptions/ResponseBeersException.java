@@ -48,6 +48,7 @@ public class ResponseBeersException extends RuntimeException {
         this.messageKey = messageKey;
     }
 
+    // TODO: 30.07.2022 ты его не используешь, значит нарушен принцип YAGNI!
     /**
      * Constructor
      *

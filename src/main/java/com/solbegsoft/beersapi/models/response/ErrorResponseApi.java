@@ -35,5 +35,5 @@ public class ErrorResponseApi<T> {
     /**
      * Data of message
      */
-    private T data;
+    private T data; // TODO: 30.07.2022 ну, а как же наследование? У тебя же уже есть сущность с таким полем ResponseApi
 }
