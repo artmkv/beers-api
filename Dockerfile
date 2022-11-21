@@ -10,5 +10,3 @@ COPY --from=build /home/gradle/src/build/libs/*.jar /app/
 
 EXPOSE 8091
 ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/beers-api-0.0.1-SNAPSHOT.jar"]
-
-#CMD ["java", "-jar","/build/libs/beers-api-0.0.1-SNAPSHOT.jar"]

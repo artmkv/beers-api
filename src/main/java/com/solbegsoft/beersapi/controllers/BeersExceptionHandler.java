@@ -2,6 +2,8 @@ package com.solbegsoft.beersapi.controllers;
 
 
 import com.solbegsoft.beersapi.annotations.CustomLogger;
+import com.solbegsoft.beersapi.async.AsyncException;
+import com.solbegsoft.beersapi.async.AsyncService;
 import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.response.ErrorResponseApi;
@@ -24,6 +26,11 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class BeersExceptionHandler {
+
+    /**
+     * @see AsyncService
+     */
+    private final AsyncService asyncService;
 
     /**
      * @see MessageUtils
@@ -77,12 +84,23 @@ public class BeersExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorResponseApi<Object> handleConstraintViolationException(ConstraintViolationException e) {
 
-        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER, "00", "01"); // TODO: 30.07.2022 а что за 00 и 01, зачем они тут? 0_о 
+        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER);
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(message)
                 .data(e.getMessage())
                 .build();
+    }
+
+    /**
+     * Handler AsyncException
+     *
+     * @param e exception
+     * @return {@link ResponseApi}
+     */
+    @ExceptionHandler(AsyncException.class)
+    public void handlerAsyncException(AsyncException e) {
+        asyncService.sendError(e.getMessage());
     }
 }
