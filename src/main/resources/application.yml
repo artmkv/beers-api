@@ -30,3 +30,4 @@ eureka:
     fetchRegistry: true
     service-url:
       default-zone: http://eureka-server:${eureka.client.eureka-server-port}/eureka
+    enabled: false

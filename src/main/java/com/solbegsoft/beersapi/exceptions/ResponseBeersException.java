@@ -47,18 +47,4 @@ public class ResponseBeersException extends RuntimeException {
         this.httpStatus = httpStatus;
         this.messageKey = messageKey;
     }
-
-    /**
-     * Constructor
-     *
-     * @param messageKey message key
-     * @param httpStatus {@link HttpStatus}
-     * @param message message from exception
-     * @param cause exception
-     */
-    public ResponseBeersException(String messageKey, HttpStatus httpStatus, String message, Throwable cause) {
-        super(message, cause);
-        this.httpStatus = httpStatus;
-        this.messageKey = messageKey;
-    }
 }
