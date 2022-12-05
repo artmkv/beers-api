@@ -1,4 +1,4 @@
-package com.solbegsoft.beersapi.async;
+package com.solbegsoft.beersapi.rabbit;
 
 
 import lombok.RequiredArgsConstructor;
@@ -7,21 +7,21 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import static com.solbegsoft.beersapi.configurations.AsyncConfig.QUEUE_NAME_BEERS;
+import static com.solbegsoft.beersapi.configurations.RabbitConfig.QUEUE_NAME_GET_ALL_BEERS;
 
 /**
  * Async Listener
  */
 @Slf4j
-@RabbitListener(queues = QUEUE_NAME_BEERS)
+@RabbitListener(queues = QUEUE_NAME_GET_ALL_BEERS)
 @Component
 @RequiredArgsConstructor
-public class AsyncListener {
+public class RabbitReceiver {
 
     /**
-     * @see AsyncService
+     * @see RabbitSender
      */
-    private final AsyncService asyncService;
+    private final RabbitSender rabbitSender;
 
     /**
      * Rabbit Handler
@@ -29,10 +29,10 @@ public class AsyncListener {
      * @param message string
      */
     @RabbitHandler
-    public void receiveMessage(String message) {
+    public void receiveGetAllBeers(String message) {
 
-        log.info("[ASYNC] - " + "Received  BEER <" + message + ">");
-        asyncService.receive(message);
+        log.info("[ASYNC] - Received  BEER <{}>", message);
+        rabbitSender.receive(message);
         log.info("[ASYNC] MESSAGE Received SUCCESS");
     }
 }

@@ -47,19 +47,4 @@ public class ResponseBeersException extends RuntimeException {
         this.httpStatus = httpStatus;
         this.messageKey = messageKey;
     }
-
-    // TODO: 30.07.2022 ты его не используешь, значит нарушен принцип YAGNI!
-    /**
-     * Constructor
-     *
-     * @param messageKey message key
-     * @param httpStatus {@link HttpStatus}
-     * @param message message from exception
-     * @param cause exception
-     */
-    public ResponseBeersException(String messageKey, HttpStatus httpStatus, String message, Throwable cause) {
-        super(message, cause);
-        this.httpStatus = httpStatus;
-        this.messageKey = messageKey;
-    }
 }

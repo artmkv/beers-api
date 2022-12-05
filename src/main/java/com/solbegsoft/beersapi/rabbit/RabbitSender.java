@@ -1,4 +1,4 @@
-package com.solbegsoft.beersapi.async;
+package com.solbegsoft.beersapi.rabbit;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Async Service
+ * Rabbit Service
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AsyncService {
+public class RabbitSender {
 
     /**
      * @see ObjectMapper
@@ -59,6 +59,11 @@ public class AsyncService {
         log.info("[ASYNC] Response from BEER: SUCCESS");
     }
 
+    /**
+     * Send Error
+     *
+     * @param toSend String to Send
+     */
     public void sendError(String toSend) {
 
         template.convertAndSend(queueError.getName(), toSend);
@@ -66,28 +71,38 @@ public class AsyncService {
         log.info("[ASYNC] Response from BEER: SUCCESS");
     }
 
+    /**
+     * Receive
+     *
+     * @param string Input String
+     */
     public void receive(String string) {
 
-        log.info("[ASYNC] Request to BEER: " + string);
+        log.info("[ASYNC] Request to BEER: {}", string);
         String toSend;
-        RequestRootBeerDto requestRootBeerDto = convertMessageToRequest(string);
-        List<RootBeerDto> beers = beersService.getBeers(requestRootBeerDto);
-
         try {
+            RequestRootBeerDto requestRootBeerDto = convertMessageToRequestRootBeerDto(string);
+            List<RootBeerDto> beers = beersService.getBeers(requestRootBeerDto);
             toSend = objectMapper.writeValueAsString(beers);
         } catch (JsonProcessingException e) {
-            throw new AsyncException(e.getMessage());
+            throw new RabbitException(e.getMessage());
         }
 
-        log.info("[ASYNC] Response from BEER: " + toSend);
+        log.info("[ASYNC] Response from BEER: {}", toSend);
         sentToFavorites(toSend);
     }
 
-    private RequestRootBeerDto convertMessageToRequest(String message) {
+    /**
+     * Converter Receive Message to Request Root Beer Dto
+     *
+     * @param message String message
+     * @return {@link RequestRootBeerDto}
+     */
+    private RequestRootBeerDto convertMessageToRequestRootBeerDto(String message) {
         try {
             return objectMapper.readValue(message, RequestRootBeerDto.class);
         } catch (JsonProcessingException e) {
-            throw new AsyncException(e.getMessage());
+            throw new RabbitException(e.getMessage());
         }
     }
 }

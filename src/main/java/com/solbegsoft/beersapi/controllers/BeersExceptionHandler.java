@@ -2,8 +2,8 @@ package com.solbegsoft.beersapi.controllers;
 
 
 import com.solbegsoft.beersapi.annotations.CustomLogger;
-import com.solbegsoft.beersapi.async.AsyncException;
-import com.solbegsoft.beersapi.async.AsyncService;
+import com.solbegsoft.beersapi.rabbit.RabbitException;
+import com.solbegsoft.beersapi.rabbit.RabbitSender;
 import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.response.ErrorResponseApi;
@@ -28,9 +28,9 @@ import javax.validation.ConstraintViolationException;
 public class BeersExceptionHandler {
 
     /**
-     * @see AsyncService
+     * @see RabbitSender
      */
-    private final AsyncService asyncService;
+    private final RabbitSender rabbitSender;
 
     /**
      * @see MessageUtils
@@ -99,8 +99,8 @@ public class BeersExceptionHandler {
      * @param e exception
      * @return {@link ResponseApi}
      */
-    @ExceptionHandler(AsyncException.class)
-    public void handlerAsyncException(AsyncException e) {
-        asyncService.sendError(e.getMessage());
+    @ExceptionHandler(RabbitException.class)
+    public void handlerAsyncException(RabbitException e) {
+        rabbitSender.sendError(e.getMessage());
     }
 }

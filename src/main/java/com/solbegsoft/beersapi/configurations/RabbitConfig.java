@@ -6,18 +6,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Async Configuration
+ * Rabbit Configuration
  */
 @Configuration
-public class AsyncConfig {
+public class RabbitConfig {
 
-    public static final String QUEUE_NAME_BEERS = "beers";
-    public static final String QUEUE_NAME_FAVORITES = "favorites";
-    public static final String QUEUE_NAME_ERROR = "error";
+    public static final String QUEUE_NAME_GET_ALL_BEERS = "beers-api.queue.get-all.input";
+    public static final String QUEUE_NAME_FAVORITES = "favorites.queue.get-all.input";
+    public static final String QUEUE_NAME_ERROR = "beers.queue.get-all.input";
 
     @Bean
     public Queue queueBeers() {
-        return new Queue(QUEUE_NAME_BEERS);
+        return new Queue(QUEUE_NAME_GET_ALL_BEERS);
     }
 
     @Bean

@@ -29,7 +29,6 @@ public class FirstBrewedConverter {
      *
      * @param date in String type format
      * @return {@link LocalDate}
-     * @throws ResponseBeersException
      */
     public LocalDate convertStringToLocalDate(String date) throws ResponseBeersException {
 
@@ -50,5 +49,16 @@ public class FirstBrewedConverter {
             }
         }
         return null;
+    }
+
+    /**
+     * Converter LocalDate type format date to String type
+     *
+     * @param date LocalDate
+     * @return String
+     */
+    public String convertLocalDateToString(LocalDate date) {
+
+        return String.format("{0}/{1}", date.getMonth(), date.getYear());
     }
 }
