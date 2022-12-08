@@ -31,3 +31,9 @@ eureka:
     service-url:
       default-zone: http://eureka-server:${eureka.client.eureka-server-port}/eureka
     enabled: false
+
+rabbitmq:
+  queue:
+    input: beers-api.queue.get-all.input
+    output: beers-api.queue.get-all.output
+    error: beers-api.queue.get-all.error

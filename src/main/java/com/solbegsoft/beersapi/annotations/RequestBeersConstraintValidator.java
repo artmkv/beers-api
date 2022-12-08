@@ -14,8 +14,10 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class RequestBeersConstraintValidator implements ConstraintValidator<CustomRequestParamValidation, Double> {
+
     /**
      * Initialize validator
+     *
      * @param constraintAnnotation annotation
      */
     @Override
@@ -24,8 +26,9 @@ public class RequestBeersConstraintValidator implements ConstraintValidator<Cust
     }
 
     /**
-     *  is valid parameters
-     * @param value of parameter
+     * Is valid parameters
+     *
+     * @param value   of parameter
      * @param context of Constraint validator
      * @return true/false
      */

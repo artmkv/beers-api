@@ -7,15 +7,15 @@ import com.solbegsoft.beersapi.models.requests.RequestRootBeerDto;
 import java.util.List;
 
 /**
- * interface PunkApi repository
+ * Interface PunkApi repository
  */
 public interface PunkApiRepository {
 
     /**
      * Find all beers
      *
-     * @param requestParams {@link RequestRootBeerDto} object with all parameters
+     * @param requestRootBeerDto {@link RequestRootBeerDto} object with all parameters
      * @return list of {@link RootBeer}
      */
-    List<RootBeer> getRootBeers(RequestRootBeerDto requestParams);
+    List<RootBeer> getRootBeers(RequestRootBeerDto requestRootBeerDto);
 }

@@ -7,13 +7,13 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import static com.solbegsoft.beersapi.configurations.RabbitConfig.QUEUE_NAME_GET_ALL_BEERS;
+import static com.solbegsoft.beersapi.configurations.RabbitConfig.QUEUE_INPUT_GET_ALL_BEERS_API;
 
 /**
- * Async Listener
+ * Rabbit Listener
  */
 @Slf4j
-@RabbitListener(queues = QUEUE_NAME_GET_ALL_BEERS)
+@RabbitListener(queues = QUEUE_INPUT_GET_ALL_BEERS_API)
 @Component
 @RequiredArgsConstructor
 public class RabbitReceiver {
@@ -24,7 +24,7 @@ public class RabbitReceiver {
     private final RabbitSender rabbitSender;
 
     /**
-     * Rabbit Handler
+     * Rabbit handler
      *
      * @param message string
      */

@@ -2,12 +2,12 @@ package com.solbegsoft.beersapi.controllers;
 
 
 import com.solbegsoft.beersapi.annotations.CustomLogger;
-import com.solbegsoft.beersapi.rabbit.RabbitException;
-import com.solbegsoft.beersapi.rabbit.RabbitSender;
 import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.response.ErrorResponseApi;
 import com.solbegsoft.beersapi.models.response.ResponseApi;
+import com.solbegsoft.beersapi.rabbit.RabbitException;
+import com.solbegsoft.beersapi.rabbit.RabbitSender;
 import com.solbegsoft.beersapi.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -94,10 +94,29 @@ public class BeersExceptionHandler {
     }
 
     /**
-     * Handler AsyncException
+     * Handle {@link ConstraintViolationException}
      *
      * @param e exception
-     * @return {@link ResponseApi}
+     * @return {@link ErrorResponseApi}
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorResponseApi<Object> handleIllegalArgumentException(IllegalArgumentException e) {
+
+        String message = messageUtils.getMessage(ErrorMessageConstant.EMPTY_PARAMETER);
+
+        return ErrorResponseApi.builder()
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .message(message)
+                .data(e.getMessage())
+                .build();
+    }
+
+    /**
+     * Handler AsyncException send messages to Error queue
+     *
+     * @param e exception
      */
     @ExceptionHandler(RabbitException.class)
     public void handlerAsyncException(RabbitException e) {

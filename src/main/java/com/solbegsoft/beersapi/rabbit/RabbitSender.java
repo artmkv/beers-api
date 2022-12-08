@@ -40,12 +40,12 @@ public class RabbitSender {
     /**
      * @see Queue
      */
-    private final Queue queueFavorites;
+    private final Queue queueBeersApiOutput;
 
     /**
      * @see Queue
      */
-    private final Queue queueError;
+    private final Queue queueBeersApiError;
 
     /**
      * Send Message to Favorites API
@@ -54,9 +54,9 @@ public class RabbitSender {
      */
     public void sentToFavorites(String toSend) {
 
-        template.convertAndSend(queueFavorites.getName(), toSend);
+        template.convertAndSend(queueBeersApiOutput.getName(), toSend);
 
-        log.info("[ASYNC] Response from BEER: SUCCESS");
+        log.info("[ASYNC] Response from BEERS-API: SUCCESS");
     }
 
     /**
@@ -66,19 +66,19 @@ public class RabbitSender {
      */
     public void sendError(String toSend) {
 
-        template.convertAndSend(queueError.getName(), toSend);
+        template.convertAndSend(queueBeersApiError.getName(), toSend);
 
-        log.info("[ASYNC] Response from BEER: SUCCESS");
+        log.info("[ASYNC] Response from BEERS-API: SUCCESS");
     }
 
     /**
-     * Receive
+     * Receive message
      *
      * @param string Input String
      */
     public void receive(String string) {
 
-        log.info("[ASYNC] Request to BEER: {}", string);
+        log.info("[ASYNC] Request to BEERS-API: {}", string);
         String toSend;
         try {
             RequestRootBeerDto requestRootBeerDto = convertMessageToRequestRootBeerDto(string);

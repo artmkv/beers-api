@@ -2,6 +2,7 @@ package com.solbegsoft.beersapi.configurations;
 
 
 import org.springframework.amqp.core.Queue;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,22 +12,36 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    public static final String QUEUE_NAME_GET_ALL_BEERS = "beers-api.queue.get-all.input";
-    public static final String QUEUE_NAME_FAVORITES = "favorites.queue.get-all.input";
-    public static final String QUEUE_NAME_ERROR = "beers.queue.get-all.input";
+    /**
+     * Queue name input messages
+     */
+    @Value("${rabbitmq.queue.input}")
+    public static final String QUEUE_INPUT_GET_ALL_BEERS_API = "beers-api.queue.get-all.input";
+
+    /**
+     * Queue name for output messages
+     */
+    @Value("${rabbitmq.queue.output}")
+    public static final String QUEUE_OUTPUT_GET_ALL_BEERS_API = "beers-api.queue.get-all.output";
+
+    /**
+     * Queue name for Error
+     */
+    @Value("${rabbitmq.queue.error}")
+    public static final String QUEUE_BEERS_API_ERROR = "beers-api.queue.get-all.error";
 
     @Bean
-    public Queue queueBeers() {
-        return new Queue(QUEUE_NAME_GET_ALL_BEERS);
+    public Queue queueBeersApiInput() {
+        return new Queue(QUEUE_INPUT_GET_ALL_BEERS_API);
     }
 
     @Bean
-    public Queue queueFavorites() {
-        return new Queue(QUEUE_NAME_FAVORITES);
+    public Queue queueBeersApiOutput() {
+        return new Queue(QUEUE_OUTPUT_GET_ALL_BEERS_API);
     }
 
     @Bean
-    public Queue queueError() {
-        return new Queue(QUEUE_NAME_ERROR);
+    public Queue queueBeersApiError() {
+        return new Queue(QUEUE_BEERS_API_ERROR);
     }
 }
