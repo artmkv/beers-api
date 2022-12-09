@@ -30,6 +30,11 @@ public class RabbitConfig {
     @Value("${rabbitmq.queue.error}")
     public static final String QUEUE_BEERS_API_ERROR = "beers-api.queue.get-all.error";
 
+    /**
+     * Queue name for output messages from Favorites API
+     */
+    public static final String QUEUE_OUTPUT_GET_ALL_FAVORITES_API = "favorites-api.queue.get-all.output";
+
     @Bean
     public Queue queueBeersApiInput() {
         return new Queue(QUEUE_INPUT_GET_ALL_BEERS_API);
