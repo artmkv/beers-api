@@ -35,7 +35,7 @@ public class RabbitSender {
     /**
      * @see RabbitTemplate
      */
-    private final RabbitTemplate template;
+    private final RabbitTemplate rabbitTemplate;
 
     /**
      * @see Queue
@@ -52,10 +52,10 @@ public class RabbitSender {
      *
      * @param toSend message to send
      */
-    public void sentToFavorites(String toSend) {
+    public void sentToBeersOutput(String toSend) {
 
-        template.convertAndSend(queueBeersApiOutput.getName(), toSend);
-        log.info("[ASYNC] Response from BEERS-API: SUCCESS");
+        rabbitTemplate.convertAndSend(queueBeersApiOutput.getName(), toSend);
+        log.info("[ASYNC] Response from BEERS-API to FAVORITES_API: SUCCESS");
     }
 
     /**
@@ -65,7 +65,7 @@ public class RabbitSender {
      */
     public void sendError(String toSend) {
 
-        template.convertAndSend(queueBeersApiError.getName(), toSend);
+        rabbitTemplate.convertAndSend(queueBeersApiError.getName(), toSend);
         log.info("[ASYNC] Response from BEERS-API: SUCCESS");
     }
 
@@ -87,7 +87,7 @@ public class RabbitSender {
         }
 
         log.info("[ASYNC] Response from BEERS-API: {}", toSend);
-        sentToFavorites(toSend);
+        sentToBeersOutput(toSend);
     }
 
     /**
