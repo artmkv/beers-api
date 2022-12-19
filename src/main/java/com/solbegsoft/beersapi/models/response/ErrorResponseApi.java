@@ -2,20 +2,19 @@ package com.solbegsoft.beersapi.models.response;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
 /**
  * Error Response model
- *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ErrorResponseApi<T> {
+@SuperBuilder
+public class ErrorResponseApi<T> extends ResponseApi<T> {
 
     /**
      * Statuscode of HttpStatus
@@ -23,7 +22,7 @@ public class ErrorResponseApi<T> {
     private int statusCode;
 
     /**
-     *@see HttpStatus
+     * @see HttpStatus
      */
     private HttpStatus httpStatus;
 
@@ -33,7 +32,11 @@ public class ErrorResponseApi<T> {
     private String message;
 
     /**
-     * Data of message
+     * Response
+     *
+     * @param data Parameter
      */
-    private T data;
+    public ErrorResponseApi(T data) {
+        super(data);
+    }
 }

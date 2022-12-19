@@ -15,7 +15,7 @@ public final class ErrorMessageConstant {
      */
     public static final String INVALID_TYPE_PARAMETER = "validate.type";
     public static final String INVALID_RANGE_PARAMETER = "validate.range";
+    public static final String EMPTY_PARAMETER = "validate.empty";
     public static final String ERROR_IN_PUNKAPI_REPOSITORY ="error.repository";
-    public static final String ERROR_BEERS_API = "error.beersapi";
     public static final String ERROR_CONVERTER = "error.converter";
 }

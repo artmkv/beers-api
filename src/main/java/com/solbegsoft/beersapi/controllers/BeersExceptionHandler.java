@@ -6,6 +6,8 @@ import com.solbegsoft.beersapi.configurations.ErrorMessageConstant;
 import com.solbegsoft.beersapi.exceptions.ResponseBeersException;
 import com.solbegsoft.beersapi.models.response.ErrorResponseApi;
 import com.solbegsoft.beersapi.models.response.ResponseApi;
+import com.solbegsoft.beersapi.rabbit.RabbitException;
+import com.solbegsoft.beersapi.rabbit.RabbitSender;
 import com.solbegsoft.beersapi.utils.MessageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,11 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class BeersExceptionHandler {
+
+    /**
+     * @see RabbitSender
+     */
+    private final RabbitSender rabbitSender;
 
     /**
      * @see MessageUtils
@@ -76,12 +83,43 @@ public class BeersExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorResponseApi<Object> handleConstraintViolationException(ConstraintViolationException e) {
-        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER, "00", "01");
+
+        String message = messageUtils.getMessage(ErrorMessageConstant.INVALID_RANGE_PARAMETER);
         return ErrorResponseApi.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .message(message)
                 .data(e.getMessage())
                 .build();
+    }
+
+    /**
+     * Handle {@link ConstraintViolationException}
+     *
+     * @param e exception
+     * @return {@link ErrorResponseApi}
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorResponseApi<Object> handleIllegalArgumentException(IllegalArgumentException e) {
+
+        String message = messageUtils.getMessage(ErrorMessageConstant.EMPTY_PARAMETER);
+
+        return ErrorResponseApi.builder()
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .message(message)
+                .data(e.getMessage())
+                .build();
+    }
+
+    /**
+     * Handler AsyncException send messages to Error queue
+     *
+     * @param e exception
+     */
+    @ExceptionHandler(RabbitException.class)
+    public void handlerAsyncException(RabbitException e) {
+        rabbitSender.sendError(e.getMessage());
     }
 }
